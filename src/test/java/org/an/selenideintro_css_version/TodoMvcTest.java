@@ -1,4 +1,4 @@
-package org.an.selenideintro;
+package org.an.selenideintro_css_version;
 
 import org.junit.jupiter.api.Test;
 
