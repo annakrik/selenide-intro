@@ -1,4 +1,4 @@
-package org.an.selenideintro_xpath_version;
+package org.an.selenideintro.xpathversion;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +17,8 @@ public class TodoMvcTest {
         element(byXpath("//*[@id='new-todo']")).setValue("c").pressEnter();
         elements(byXpath("//*[@id='todo-list']//li")).shouldHave(exactTexts("a", "b", "c"));
 
-        element(byXpath("//*[@id='todo-list']//*[.//text()='b']//*[contains(concat(' ',normalize-space(@class),' '),' toggle ')]")).click();
-        elements(byXpath("//*[@id='todo-list']//*[contains(concat(' ',normalize-space(@class),' '),' completed ')]")).shouldHave(exactTexts("b"));
-        elements(byXpath("//*[@id='todo-list']//li[not(contains(@class, 'completed'))]")).shouldHave(exactTexts("a", "c"));
+        element(byXpath("//*[@id='todo-list']//li[.//text()='b']//*[contains(concat(' ',normalize-space(@class),' '),' toggle ')]")).click();
+        elements(byXpath("//*[@id='todo-list']//li[contains(concat(' ',normalize-space(@class),' '),' completed ')]")).shouldHave(exactTexts("b"));
+        elements(byXpath("//*[@id='todo-list']//li[not(contains(concat(' ',normalize-space(@class),' '),' completed '))]")).shouldHave(exactTexts("a", "c"));
     }
 }
