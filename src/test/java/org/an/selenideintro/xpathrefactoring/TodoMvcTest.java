@@ -1,4 +1,4 @@
-package org.an.selenideintro.xpathversion;
+package org.an.selenideintro.xpathrefactoring;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +18,22 @@ public class TodoMvcTest {
         elements(byXpath("//*[@id='todo-list']//li")).shouldHave(exactTexts("a", "b", "c"));
 
         element(byXpath("//*[@id='todo-list']"
-                +"//li[.//text()='b']//*[contains(concat(' ',normalize-space(@class),' '),' toggle ')]"))
+                +"//li[.//text()='b']//*["+findByCssClass(false)+"]"))
                 .click();
         elements(byXpath("//*[@id='todo-list']"
-                +"//li[contains(concat(' ',normalize-space(@class),' '),' completed ')]"))
+                +"//li["+findByCssClass(true)+"]"))
                 .shouldHave(exactTexts("b"));
         elements(byXpath("//*[@id='todo-list']"
-                +"//li[not(contains(concat(' ',normalize-space(@class),' '),' completed '))]"))
+                +"//li[not("+findByCssClass(true)+")]"))
                 .shouldHave(exactTexts("a", "c"));
+    }
+
+    String findByCssClass(boolean classCompleted){
+        if (classCompleted){
+            String findCompleted = "contains(concat(' ',normalize-space(@class),' '),' completed ')";
+            return findCompleted;
+        }
+        String findToggle = "contains(concat(' ',normalize-space(@class),' '),' toggle ')";
+        return findToggle;
     }
 }
