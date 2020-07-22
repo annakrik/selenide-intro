@@ -1,5 +1,6 @@
 package org.an.selenideintro.xpathrefactoring;
 
+import org.an.selenideintro.helpers.XPath;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
@@ -7,7 +8,7 @@ import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.elements;
 
-public class TodoMvcTest {
+public class TodoMvcTest extends XPath {
     @Test
     void completeTask(){
         open("http://todomvc.com/examples/emberjs/");
@@ -18,22 +19,13 @@ public class TodoMvcTest {
         elements(byXpath("//*[@id='todo-list']//li")).shouldHave(exactTexts("a", "b", "c"));
 
         element(byXpath("//*[@id='todo-list']"
-                +"//li[.//text()='b']//*["+findByCssClass(false)+"]"))
+                +"//li[.//text()='b']//*["+findByCssClass(" toggle ")+"]"))
                 .click();
         elements(byXpath("//*[@id='todo-list']"
-                +"//li["+findByCssClass(true)+"]"))
+                +"//li["+findByCssClass(" completed ")+"]"))
                 .shouldHave(exactTexts("b"));
         elements(byXpath("//*[@id='todo-list']"
-                +"//li[not("+findByCssClass(true)+")]"))
+                +"//li[not("+findByCssClass(" completed ")+")]"))
                 .shouldHave(exactTexts("a", "c"));
-    }
-
-    String findByCssClass(boolean classCompleted){
-        if (classCompleted){
-            String findCompleted = "contains(concat(' ',normalize-space(@class),' '),' completed ')";
-            return findCompleted;
-        }
-        String findToggle = "contains(concat(' ',normalize-space(@class),' '),' toggle ')";
-        return findToggle;
     }
 }
