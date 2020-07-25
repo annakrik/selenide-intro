@@ -1,14 +1,13 @@
 package org.an.selenideintro.xpathrefactoring;
 
-import org.an.selenideintro.helpers.XPath;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.elements;
+import static org.an.selenideintro.helpers.XPath.findByCssClass;
 
-public class TodoMvcTest extends XPath {
+public class TodoMvcTest{
     @Test
     void completeTask(){
         open("http://todomvc.com/examples/emberjs/");
@@ -19,7 +18,7 @@ public class TodoMvcTest extends XPath {
         elements(byXpath("//*[@id='todo-list']//li")).shouldHave(exactTexts("a", "b", "c"));
 
         element(byXpath("//*[@id='todo-list']"
-                +"//li[.//text()='b']//*["+findByCssClass(" toggle ")+"]"))
+                +"//li[.//text()='b']//*["+ findByCssClass(" toggle ")+"]"))
                 .click();
         elements(byXpath("//*[@id='todo-list']"
                 +"//li["+findByCssClass(" completed ")+"]"))
