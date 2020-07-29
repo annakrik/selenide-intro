@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
-import static org.an.selenideintro.helpers.XPath.findByCssClass;
+import static org.an.selenideintro.helpers.XPath.hasCssClass;
 
 public class TodoMvcTest{
     @Test
@@ -18,13 +18,13 @@ public class TodoMvcTest{
         elements(byXpath("//*[@id='todo-list']//li")).shouldHave(exactTexts("a", "b", "c"));
 
         element(byXpath("//*[@id='todo-list']"
-                +"//li[.//text()='b']//*["+ findByCssClass(" toggle ")+"]"))
+                +"//li[.//text()='b']//*["+ hasCssClass("toggle")+"]"))
                 .click();
         elements(byXpath("//*[@id='todo-list']"
-                +"//li["+findByCssClass(" completed ")+"]"))
+                +"//li["+hasCssClass("completed")+"]"))
                 .shouldHave(exactTexts("b"));
         elements(byXpath("//*[@id='todo-list']"
-                +"//li[not("+findByCssClass(" completed ")+")]"))
+                +"//li[not("+hasCssClass("completed")+")]"))
                 .shouldHave(exactTexts("a", "c"));
     }
 }
