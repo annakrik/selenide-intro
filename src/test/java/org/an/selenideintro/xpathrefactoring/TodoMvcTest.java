@@ -1,5 +1,6 @@
 package org.an.selenideintro.xpathrefactoring;
 
+import org.an.selenideintro.helpers.XPath;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
