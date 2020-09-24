@@ -1,6 +1,6 @@
-package org.an.selenideintro.helpers;
+package org.an.selenideintro.helpers.selectors.xpath.utils;
 
-public class XPath {
+public class X {
 
     public static String hasCssClass(String name){
         return "contains(" +

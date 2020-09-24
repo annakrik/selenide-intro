@@ -1,6 +1,7 @@
 package org.an.selenideintro.xpathDSL;
 
-import org.an.selenideintro.helpers.XPathDSL;
+import org.an.selenideintro.helpers.selectors.xpath.dsl.X;
+import org.an.selenideintro.helpers.selectors.xpath.dsl.Its;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
@@ -12,32 +13,24 @@ public class TodoMvcTest{
     void completeTask(){
         open("http://todomvc.com/examples/emberjs/");
 
-        element(byXpath("//*[@id='new-todo']")).setValue("a").pressEnter();
-        element(byXpath("//*[@id='new-todo']")).setValue("b").pressEnter();
-        element(byXpath("//*[@id='new-todo']")).setValue("c").pressEnter();
-        elements(byXpath("//*[@id='todo-list']//li")).shouldHave(exactTexts("a", "b", "c"));
+        element(byXpath(X.all().by(Its.id("new-todo")).x())).setValue("a").pressEnter();
+        element(byXpath(X.all().by(Its.id("new-todo")).x())).setValue("b").pressEnter();
+        element(byXpath(X.all().by(Its.id("new-todo")).x())).setValue("c").pressEnter();
 
-        element(byXpath(XPathDSL.all()
-                .filterById("todo-list")
-                .child("li")
-                .filterByDescendantWithText("b")
-                .descendant()
-                .hasCssClass("toggle")
-                .getSelector()))
+        elements(byXpath(X.all().by(Its.id("todo-list")).child("li").x()))
+                .shouldHave(exactTexts("a", "b", "c"));
+
+        element(byXpath(X.all().by(Its.id("todo-list"))
+                .child("li").by(Its.descendantWithText("b"))
+                .descendant().by(Its.cssClass("toggle")).x()))
                 .click();
 
-        elements(byXpath(XPathDSL.all()
-                .filterById("todo-list")
-                .child("li")
-                .hasCssClass("completed")
-                .getSelector()))
+        elements(byXpath(X.all().by(Its.id("todo-list"))
+                .child("li").by(Its.cssClass("completed")).x()))
                 .shouldHave(exactTexts("b"));
 
-        elements(byXpath(XPathDSL.all()
-                .filterById("todo-list")
-                .child("li")
-                .notHasCssClass("completed")
-                .getSelector()))
-                .shouldHave(exactTexts("a","c"));
+        elements(byXpath(X.all().by(Its.id("todo-list"))
+                .child("li").by(Its.not(Its.cssClass("completed")))
+                .x())).shouldHave(exactTexts("a","c"));
     }
 }
