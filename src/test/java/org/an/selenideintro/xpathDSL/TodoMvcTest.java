@@ -31,6 +31,6 @@ public class TodoMvcTest{
 
         elements(byXpath(X.all().by(Its.id("todo-list"))
                 .child("li").by(Its.not(Its.cssClass("completed")))
-                .x())).shouldHave(exactTexts("a","c"));
+                .x())).shouldHave(exactTexts("a", "c"));
     }
 }

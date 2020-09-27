@@ -4,7 +4,9 @@ public class X{
 
     private String selector;
 
-    public X(String selector) { this.selector = selector; }
+    public X(String selector) {
+        this.selector = selector;
+    }
 
     public static X all(){
         return new X("//*");
